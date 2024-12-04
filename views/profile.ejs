@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+
+        .profile-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .profile-info .details {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .profile-info .details p {
+            margin: 10px 0;
+        }
+
+        .complaints-section {
+            margin-top: 30px;
+        }
+
+        .complaint-card {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .complaint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .complaint-card .complaint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .complaint-card .complaint-header .complaint-type {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .complaint-card .complaint-description {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .complaint-card .complaint-address {
+            font-size: 0.95rem;
+            color: #777;
+        }
+
+        .complaint-card .complaint-city {
+            font-size: 0.95rem;
+            color: #777;
+        }
+
+        .complaint-card .image-preview {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>User Profile</h1>
+        <button class="btn" onclick="editProfile()">Edit Profile</button>
+    </div>
+
+    <!-- User Profile Info Section -->
+    <div class="profile-info">
+        <div class="details">
+            <h3>Username: <span id="username">JohnDoe</span></h3>
+            <p>Email: <span id="email">johndoe@gmail.com</span></p>
+            <p>Joined: <span id="joinDate">January 15, 2022</span></p>
+        </div>
+        <div class="profile-img">
+            <img src="https://via.placeholder.com/150" alt="User Avatar" style="border-radius: 50%; width: 150px;">
+        </div>
+    </div>
+
+    <!-- User Complaints Section -->
+    <div class="complaints-section">
+        <h2>User Complaints</h2>
+
+        <!-- Sample Complaint Card 1 -->
+        <div class="complaint-card">
+            <div class="complaint-header">
+                <div class="complaint-type">Road Issue</div>
+                <div class="complaint-status">Status: Pending</div>
+            </div>
+            <p class="complaint-description">The road near my house is damaged and full of potholes. It's dangerous for commuters.</p>
+            <p class="complaint-address">Address: 123, ABC Street</p>
+            <p class="complaint-city">City: Mumbai</p>
+            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
+        </div>
+
+        <!-- Sample Complaint Card 2 -->
+        <div class="complaint-card">
+            <div class="complaint-header">
+                <div class="complaint-type">Garbage Issue</div>
+                <div class="complaint-status">Status: Resolved</div>
+            </div>
+            <p class="complaint-description">Garbage is piling up in front of my house and is attracting stray animals.</p>
+            <p class="complaint-address">Address: 456, XYZ Avenue</p>
+            <p class="complaint-city">City: Delhi</p>
+            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
+        </div>
+
+        <!-- Add more complaint cards dynamically here -->
+        <div class="complaint-card">
+            <div class="complaint-header">
+                <div class="complaint-type">Other</div>
+                <div class="complaint-status">Status: In Progress</div>
+            </div>
+            <p class="complaint-description">Request for additional streetlights on the main road.</p>
+            <p class="complaint-address">Address: 789, DEF Road</p>
+            <p class="complaint-city">City: Bangalore</p>
+            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Placeholder function for editing profile
+    function editProfile() {
+        alert("Profile editing feature will be implemented soon!");
+    }
+</script>
+
+</body>
+</html>
