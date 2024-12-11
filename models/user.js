@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/postingapp");
+mongoose.connect("mongodb://localhost:27017/mini_project");
 
 const userSchema = mongoose.Schema({
     username:String,

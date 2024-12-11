@@ -20,11 +20,18 @@ const complaintSchema = mongoose.Schema({
         default: Date.now
     },
 
-    image: {
+    image: [{
         type: String, 
-        required: false
-    },
+        required: true
+    }],
 
+    latitude:{
+        type:Number
+    }
+    ,
+    longitude:{
+        type:Number
+    }
     
 
 

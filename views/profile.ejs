@@ -135,54 +135,31 @@
     <!-- User Profile Info Section -->
     <div class="profile-info">
         <div class="details">
-            <h3>Username: <span id="username">JohnDoe</span></h3>
-            <p>Email: <span id="email">johndoe@gmail.com</span></p>
-            <p>Joined: <span id="joinDate">January 15, 2022</span></p>
+            <h3>Username: <span id="username"><%= userDetails.username %></span></h3>
+            <p>Email: <span id="email"><%= userDetails.email %></span></p>
+            
         </div>
-        <div class="profile-img">
-            <img src="https://via.placeholder.com/150" alt="User Avatar" style="border-radius: 50%; width: 150px;">
-        </div>
+        
     </div>
 
     <!-- User Complaints Section -->
     <div class="complaints-section">
-        <h2>User Complaints</h2>
-
-        <!-- Sample Complaint Card 1 -->
+        <h2>My Complaints</h2>
+        <% userDetails.complaints.forEach(function(eachComplaint){ %>
+                
         <div class="complaint-card">
             <div class="complaint-header">
-                <div class="complaint-type">Road Issue</div>
-                <div class="complaint-status">Status: Pending</div>
+                <div class="complaint-type">Complaint Type : <%= eachComplaint.complaintType %></div>
+                <div class="complaint-status"><%= eachComplaint.status %></div>
             </div>
-            <p class="complaint-description">The road near my house is damaged and full of potholes. It's dangerous for commuters.</p>
-            <p class="complaint-address">Address: 123, ABC Street</p>
-            <p class="complaint-city">City: Mumbai</p>
-            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
+            <p class="complaint-description"><%= eachComplaint.description %></p>
+            <p class="complaint-address">Addres :<%= eachComplaint.address %></p>
+            <p class="complaint-city">City : <%= eachComplaint.city %></p>
+            <img src="/images/uploads/<%= eachComplaint.image %>" alt="Complaint Image" class="image-preview">
         </div>
 
-        <!-- Sample Complaint Card 2 -->
-        <div class="complaint-card">
-            <div class="complaint-header">
-                <div class="complaint-type">Garbage Issue</div>
-                <div class="complaint-status">Status: Resolved</div>
-            </div>
-            <p class="complaint-description">Garbage is piling up in front of my house and is attracting stray animals.</p>
-            <p class="complaint-address">Address: 456, XYZ Avenue</p>
-            <p class="complaint-city">City: Delhi</p>
-            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
-        </div>
-
-        <!-- Add more complaint cards dynamically here -->
-        <div class="complaint-card">
-            <div class="complaint-header">
-                <div class="complaint-type">Other</div>
-                <div class="complaint-status">Status: In Progress</div>
-            </div>
-            <p class="complaint-description">Request for additional streetlights on the main road.</p>
-            <p class="complaint-address">Address: 789, DEF Road</p>
-            <p class="complaint-city">City: Bangalore</p>
-            <img src="https://via.placeholder.com/400x300" alt="Complaint Image" class="image-preview">
-        </div>
+        <% }); %>
+        
     </div>
 </div>
 

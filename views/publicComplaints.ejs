@@ -112,12 +112,70 @@
             border-radius: 10px; /* Rounded corners for aesthetics */
             background-color: #f4f4f4; /* Fallback background color for transparent images */
         }
+        img{
+            margin-top: 10px;
+        }
+        #mapLink a{
+            padding:5px;
+            color: black;
+            text-decoration: none;
+            color:white;
+            font-weight: bolder;
+            
+        }
+        #mapLink{
+            background-color: black;
+            color:white;
+            border:2px solid black;
+            border-radius: 10px;
+            height:40px;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: 0.3s;
+        }
+        #mapLink:hover{
+            background-color: red;
+            border:1px solid red;
+
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <!-- Sidebar -->
+        
+       
+        <div class="feed">
+            <div class="create-complaint" onclick="window.location.href='/createComplaint'">
+                + Create a Complaint
+            </div>
+            <% allComplaints.forEach(function(eachComplaint) { %>
+                <div id="posts-container">
+                    
+                    <div class="post" data-date="today" data-city="mumbai">
+                        <div class="post-header">
+                            <div class="username">@<%= eachComplaint.user.username %></div>
+                            <div class="timestamp" id="filter-date"><%= eachComplaint.date %></div>
+                        </div>
+                        <div class="post-description">
+                            <p><%= eachComplaint.description %></p>
+
+                            <p><Address>&#127968;-> <%= eachComplaint.address %></Address></p>
+                            <p id="filter-city"><%= eachComplaint.city %></p>
+
+                        </div>
+                        <p>Status : <%= eachComplaint.status %></p>
+                        <button id="mapLink">
+                            &#128510; <a  href="https://www.google.com/maps/dir/?api=1&destination=<%= eachComplaint.latitude %>,<%= eachComplaint.longitude %>" target="_blank">Open In Google Maps</a>
+
+                        </button>
+                        <img src="/images/uploads/<%= eachComplaint.image %>" alt="Complaint Image" class="post-image">
+                    </div>
+    
+                </div>
+            <% }); %>
+            
+        </div>
         <div class="sidebar">
             <h3>Filter Complaints</h3>
             <div class="filter-section">
@@ -139,63 +197,8 @@
             </div>
         </div>
 
-        <!-- Complaints Feed -->
-        <div class="feed">
-            <div class="create-complaint" onclick="window.location.href='/createComplaint'">
-                + Create a Complaint
-            </div>
-            <div id="posts-container">
-                <!-- Post 1 -->
-                <div class="post" data-date="today" data-city="mumbai">
-                    <div class="post-header">
-                        <div class="username">JohnDoe</div>
-                        <div class="timestamp">Today at 10:30 AM</div>
-                    </div>
-                    <div class="post-description">Potholes on the main road causing heavy traffic. Immediate attention needed.</div>
-                    <img src="https://cdn.shopify.com/s/files/1/0274/7288/7913/files/MicrosoftTeams-image_32.jpg?v=1705315718" alt="Complaint Image" class="post-image">
-                </div>
-
-                <!-- Post 2 -->
-                <div class="post" data-date="thisWeek" data-city="delhi">
-                    <div class="post-header">
-                        <div class="username">JaneDoe</div>
-                        <div class="timestamp">This Week at 2:15 PM</div>
-                    </div>
-                    <div class="post-description">Overflowing garbage bins in Sector 45. The situation is unhygienic.</div>
-                    <img src="https://images.deccanherald.com/deccanherald%2F2024-11-01%2F87lsqjmu%2Ffile7xs0jakylmhsi0apeej.jpg?w=1200" alt="Complaint Image" class="post-image">
-                </div>
-
-                <!-- Post 3 -->
-                <div class="post" data-date="thisWeek" data-city="bangalore">
-                    <div class="post-header">
-                        <div class="username">SamSmith</div>
-                        <div class="timestamp">This Week at 5:45 PM</div>
-                    </div>
-                    <div class="post-description">Streetlights not working in my locality. Area remains dark and unsafe.</div>
-                    <img src="https://static.toiimg.com/thumb/msid-87248287,width-400,height-225,resizemode-72/87248287.jpg" alt="Complaint Image" class="post-image">
-                </div>
-            </div>
-        </div>
     </div>
 
-    <script>
-        function filterPosts() {
-            const dateFilter = document.getElementById("filter-date").value;
-            const cityFilter = document.getElementById("filter-city").value;
-            const posts = document.querySelectorAll(".post");
-
-            posts.forEach(post => {
-                const postDate = post.getAttribute("data-date");
-                const postCity = post.getAttribute("data-city");
-
-                if ((dateFilter === "all" || dateFilter === postDate) &&
-                    (cityFilter === "all" || cityFilter === postCity)) {
-                    post.style.display = "block";
-                } else {
-                    post.style.display = "none";
-                }
-            });
-        }
-    </script>
+    
 </body>
 </html>
