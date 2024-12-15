@@ -11,6 +11,7 @@ app.use(express.static(path.join(__dirname,"public")));
 const userModel = require("./models/user");
 const complaintModel = require("./models/complaint");
 const upload = require("./config/multerconfig");
+const mongoose = require("mongoose");
 app.get("/",function(req,res){
     res.render("index");
 })
@@ -51,6 +52,7 @@ app.post("/login-submit", async function(req,res){
 })
 
 app.get("/logout",function(req,res){
+    
     res.cookie("UserToken","");
     res.redirect("/login");
 })
@@ -74,14 +76,15 @@ app.post("/ComplaintUpload",upload.single("image"), async function(req,res){
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
     const uploadedFile = req.file.filename;
-
-    const newComplaint = await complaintModel.create({complaintType,address,city,description,image:uploadedFile,latitude:latitude,longitud:longitude});
+    const decimalLatitude = mongoose.Types.Decimal128.fromString(latitude.toString());
+    const decimalLongitude = mongoose.Types.Decimal128.fromString(longitude.toString());
+    const newComplaint = await complaintModel.create({complaintType,address,city,description,image:uploadedFile,latitude:decimalLatitude,longitude:decimalLongitude});
     const user = jwt.verify(req.cookies.UserToken,"secret");
     const user_id = user.id;
     updatedComplaint = await complaintModel.findOneAndUpdate({_id:newComplaint._id},{user:user_id});
     await userModel.findOneAndUpdate({_id:user.id}, {$push: {complaints: newComplaint._id}});
 
-
+    
     res.redirect("/publicComplaints");
     
 })
@@ -93,16 +96,16 @@ app.get("/profile", async function(req, res) {
         res.redirect("/login");
     } else {
         try {
-            // Verify token
+            
             const user = jwt.verify(token, "secret");
 
-            // Fetch user details and populated complaints
+            
             const userDetails = await userModel.findOne({ _id: user.id }).populate("complaints");
 
-            // Render the profile page and pass the user details
+            
             res.render("profile", { userDetails });
         } catch (error) {
-            // If token is invalid or expired, redirect to login
+            
             console.error(error);
             res.redirect("/login");
         }
@@ -118,6 +121,34 @@ app.get("/publicComplaints", async function(req,res){
 
     res.render("publicComplaints",{allComplaints:allComplaints});
 })
+
+app.post("/filter-posts", async function(req, res) {
+    const filters = req.body;
+    let query = {};
+
+    // Build the query based on the filters
+    if (filters.filterType && filters.filterType !== "all") {
+        query.complaintType = filters.filterType;
+    }
+    if (filters.filterCity && filters.filterCity !== "all") {
+        query.city = filters.filterCity;
+    }
+    if (filters.filterStatus && filters.filterStatus !== "all") {
+        query.status = filters.filterStatus;
+    }
+
+    try {
+        // Find the complaints based on the constructed query
+        const filteredComplaints = await complaintModel.find(query).populate("user");
+        filteredComplaints.reverse(); // Optional: reverse the order if needed
+
+        // Render the publicComplaints.ejs with the filtered complaints
+        res.render("publicComplaints", { allComplaints: filteredComplaints });
+    } catch (error) {
+        console.error(error);
+        res.redirect("/publicComplaints"); // Redirect in case of error
+    }
+});
 
 
 

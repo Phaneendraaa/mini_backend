@@ -115,7 +115,7 @@
         img{
             margin-top: 10px;
         }
-        #mapLink a{
+        #openMapButton a{
             padding:5px;
             color: black;
             text-decoration: none;
@@ -123,7 +123,7 @@
             font-weight: bolder;
             
         }
-        #mapLink{
+        #openMapButton{
             background-color: black;
             color:white;
             border:2px solid black;
@@ -132,7 +132,7 @@
             font-family: Arial, Helvetica, sans-serif;
             transition: 0.3s;
         }
-        #mapLink:hover{
+        #openMapButton:hover{
             background-color: red;
             border:1px solid red;
 
@@ -165,10 +165,12 @@
 
                         </div>
                         <p>Status : <%= eachComplaint.status %></p>
-                        <button id="mapLink">
-                            &#128510; <a  href="https://www.google.com/maps/dir/?api=1&destination=<%= eachComplaint.latitude %>,<%= eachComplaint.longitude %>" target="_blank">Open In Google Maps</a>
-
+                        <button id="openMapButton">
+                            <a href="https://www.google.com/maps/search/?api=1&query=<%= eachComplaint.latitude %>%2C<%= eachComplaint.longitude %>" target="_blank">Get Directions to Location</a>
+                            
                         </button>
+
+  
                         <img src="/images/uploads/<%= eachComplaint.image %>" alt="Complaint Image" class="post-image">
                     </div>
     
@@ -179,26 +181,39 @@
         <div class="sidebar">
             <h3>Filter Complaints</h3>
             <div class="filter-section">
-                <label for="filter-date">By Date:</label>
-                <select id="filter-date" onchange="filterPosts()">
-                    <option value="all">All Dates</option>
-                    <option value="today">Today</option>
-                    <option value="thisWeek">This Week</option>
-                </select>
+                <form action="./filter-posts" method="post">
+                    <label for="filter-type">By Type of complaint:</label>
+                    <select id="filter-type" name="filterType">
+                        <option value="all" selected>All</option>
+                        <option value="roads">Roads</option>
+                        <option value="govt_infra">Infra</option>
+                        <option value="garbage">Garbage</option>
+                        <option value="other">Other</option>
+                    </select>
+                    
+                    <label for="filter-city">By City:</label>
+                    <select id="filter-city" name="filterCity">
+                        <option value="all" selected>All Cities</option>
+                        <option value="hyderabad">Hyderabad</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="bangalore">Bangalore</option>
+                    </select>
+                    
+                    <label for="filter-status">By Status:</label>
+                    <select id="filter-status" name="filterStatus">
+                        <option value="all" selected>All</option>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    
+                    <input type="submit" value="Apply Filters">
+                </form>
             </div>
-            <div class="filter-section">
-                <label for="filter-city">By City:</label>
-                <select id="filter-city" onchange="filterPosts()">
-                    <option value="all">All Cities</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="delhi">Delhi</option>
-                    <option value="bangalore">Bangalore</option>
-                </select>
-            </div>
+            
         </div>
 
     </div>
-
+   
     
 </body>
 </html>
