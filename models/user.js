@@ -9,6 +9,10 @@ const userSchema = mongoose.Schema({
     complaints:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"complaint"
-    }]
+    }],
+    admin:{
+        type:Boolean,
+        default:false
+    }
 })
 module.exports = mongoose.model("user",userSchema);

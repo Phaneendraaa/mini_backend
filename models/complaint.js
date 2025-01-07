@@ -30,8 +30,11 @@ const complaintSchema = mongoose.Schema({
     ,
     longitude:{
         type: mongoose.Types.Decimal128,
+    },
+    proofImage:{
+        type:String
+
     }
-    
 
 
 

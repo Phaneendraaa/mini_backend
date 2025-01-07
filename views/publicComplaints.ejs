@@ -18,6 +18,7 @@
             max-width: 1200px;
             margin: 20px auto;
             gap: 20px;
+            margin-top: 70px;
         }
 
         /* Sidebar Styles */
@@ -137,10 +138,41 @@
             border:1px solid red;
 
         }
+        #apply{
+            background-color: #4CAF50;
+            border: none;
+            color:white;
+            width: 130px;
+            height: 40px;
+            margin-left: 75px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+        #apply:hover{
+                background-color: black;
+        }
     </style>
 </head>
 <body>
-
+    <a href="/home" style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+"
+onmouseover="this.style.backgroundColor='#45a049'; this.style.color='#e8e8e8';"
+onmouseout="this.style.backgroundColor='#4CAF50'; this.style.color='#ffffff';"
+>
+    Back To Home
+</a>
     <div class="container">
         <!-- Sidebar -->
         
@@ -154,20 +186,19 @@
                     
                     <div class="post" data-date="today" data-city="mumbai">
                         <div class="post-header">
-                            <div class="username">@<%= eachComplaint.user.username %></div>
-                            <div class="timestamp" id="filter-date"><%= eachComplaint.date %></div>
+                            <div class="username">👤@<%= eachComplaint.user.username %></div>
+                            <div class="timestamp" id="filter-date">⏰ <%= eachComplaint.date %></div>
                         </div>
                         <div class="post-description">
-                            <p><%= eachComplaint.description %></p>
+                            <p>📜 About complaint : <%= eachComplaint.description %></p>
 
-                            <p><Address>&#127968;-> <%= eachComplaint.address %></Address></p>
-                            <p id="filter-city"><%= eachComplaint.city %></p>
+                            <p><Address>📍 Address : <%= eachComplaint.address %></Address></p>
+                            <p id="filter-city">City : <%= eachComplaint.city %></p>
 
                         </div>
-                        <p>Status : <%= eachComplaint.status %></p>
-                        <button id="openMapButton">
-                            <a href="https://www.google.com/maps/search/?api=1&query=<%= eachComplaint.latitude %>%2C<%= eachComplaint.longitude %>" target="_blank">Get Directions to Location</a>
-                            
+                        <p> ✔️ Status : <%= eachComplaint.status %></p>
+                        <button id="openMapButton" onclick="openMap('<%= eachComplaint.latitude %>', '<%= eachComplaint.longitude %>')">
+                            🗺️ Get Directions to Location
                         </button>
 
   
@@ -206,7 +237,7 @@
                         <option value="resolved">Resolved</option>
                     </select>
                     
-                    <input type="submit" value="Apply Filters">
+                    <input type="submit" value="Apply Filters" id="apply">
                 </form>
             </div>
             
@@ -214,6 +245,22 @@
 
     </div>
    
+    <script>
+        function openMap(latitude, longitude) {
+            // Check if latitude and longitude are provided
+            if (!latitude || !longitude) {
+                alert("Location coordinates are not available for this complaint.");
+                return;
+            }
     
+            // Construct the Google Maps URL
+            const encodedLatitude = encodeURIComponent(latitude);
+            const encodedLongitude = encodeURIComponent(longitude);
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLatitude},${encodedLongitude}`;
+    
+            // Open the map in a new tab
+            window.open(mapUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
