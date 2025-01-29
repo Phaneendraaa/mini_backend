@@ -383,16 +383,7 @@ app.get("/sendmail",function(req,res){
     sendMail("245122749054@mvsrec.edu.in","test",msgg);
 });
     
-app.get("/createAdmin", async function(req,res){
-    
-    await adminModel.create(
-        {
-            username:"Hyderabad",
-            password:"phani123",
-            email:"hyderabadmuncipal@gmail.com"
-        }
-    )
-})
+
 
 app.get("/addtoqueue", async function(req,res){
     const token = req.cookies.UserToken;
